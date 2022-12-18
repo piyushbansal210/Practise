@@ -19,7 +19,7 @@ public class Main {
         tr2.insert(6);
         tr2.insert(8);
         tr2.insert(10);
-
+        
         System.out.println(tr.equals(tr2));
     }
 }

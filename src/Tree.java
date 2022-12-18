@@ -119,6 +119,7 @@ public class Tree{
     }
 
     public boolean equals(Tree other){
+        if(other == null) return false;
         return equals(root, other.root);
     }
     public boolean equals(Node first, Node second){
@@ -131,6 +132,17 @@ public class Tree{
                     && equals(first.rightChild , second.rightChild);
         }
         return false;
+    }
+
+    public boolean validateBST(){
+        return validateBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private boolean validateBST(Node root, int min, int max){
+        if(root==null) return true;
+        if(root.value<min || root.value>max) return false;
+        return validateBST(root.leftChild, min, root.value-1) 
+            && validateBST(root.rightChild, root.value+1, max);       
     }
 
 }
