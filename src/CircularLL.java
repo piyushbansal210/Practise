@@ -1,9 +1,9 @@
-public class LinkedList {
+public class CircularLL {
     private class Node{
-        int val;
+        int data;
         Node next;
-        public Node(int val){
-            this.val=val;
+        public Node(int data){
+            this.data=data;
             this.next=null;
         }
     }
@@ -11,47 +11,51 @@ public class LinkedList {
     private Node Head;
     private Node Tail;
 
-    public void insertLast(int val){
-        Node node=new Node(val);
-        if(Head==null  && Tail==null){
-            Head=Tail=node;
-        }
-        else{
-            var current=Head;
-            while(current.next!=null){
-                current=current.next;
-            } 
-            current.next=node;
-            Tail=current;
-        }
-    }
-    public void insertBegining(int data){
-        Node node = new Node(data);
+    public void insertLast(int data){
+        Node node=new Node(data);
         if(Head==null && Tail==null){
             Head=Tail=node;
         }
         else{
-            node.next=Head; 
-            Head=node;
+            Tail.next=node;
+            Tail=node;
+            node.next=Head;
         }
+    }
+    public void insertBegining(int data){
+        Node node=new Node(data);
+        if(Head==null && Tail==null){
+            Head=Tail=node;
+        }
+        node.next=Head;
+        Tail.next=node;
+        Head=node;
     }
     public void insertBetween(int data,int position){
         Node node=new Node(data);
-        Node current=Head;
-        int count=1;
-        while(count<position){
-            current=current.next;
-            count++;
+        if(Head==null && Tail==null){
+            Head=Tail=null;
         }
-        node.next=current.next;
-        current.next=node;
+        else{
+            int count=1;
+            var current=Head;
+            while(count<position){
+                current=current.next;
+                count++;
+            }
+            node.next=current.next;
+            current.next=node;
+        }
+        
     }
     public void deleteFirst(){
         if(Head==null && Tail==null){
             System.out.println("Empty List");
         }
-        var node = Head.next;
-        Head=node;
+        else{
+            Tail.next=Head.next;
+            Head=Head.next;
+        }
     }
     public void deleteLast(){
         if(Head==null && Tail==null){
@@ -59,11 +63,11 @@ public class LinkedList {
         }
         else{
             var current=Head;
-            while(current.next.next!=null){
+            while(current.next!=Tail){
                 current=current.next;
             }
-            current.next=null;
-            Tail=current;
+            current.next=Head;
+            current=Tail;
         }
     }
     public void deleteBetween(int position){
@@ -71,8 +75,8 @@ public class LinkedList {
             System.out.println("Empty List");
         }
         else{
-            int count=1;
             var current=Head;
+            int count=1;
             while(count<position-1){
                 current=current.next;
                 count++;
@@ -82,9 +86,9 @@ public class LinkedList {
     }
     public void traverser(){
         Node current=Head;
-        while(current!=null){
-            System.out.println(current.val);
+        do{
+            System.out.println(current.data);
             current=current.next;
-        }
-    }
+        }while(current!=Head);
+    } 
 }
