@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Tree{
 
     private class Node{
@@ -142,7 +144,23 @@ public class Tree{
         if(root==null) return true;
         if(root.value<min || root.value>max) return false;
         return validateBST(root.leftChild, min, root.value-1) 
-            && validateBST(root.rightChild, root.value+1, max);       
+            && validateBST(root.rightChild, root.value+1, max);        
+    }
+
+    public void distanceK(int distance){
+        var list = new ArrayList<Integer>();
+        distanceK(root, distance, list);
+    }
+
+    private void distanceK(Node root, int distance, ArrayList<Integer> list){
+        if(root==null) return;
+        if(distance==0) {
+            list.add(root.value);
+            return;
+        };
+        distanceK(root.leftChild, distance-1, list);
+        distanceK(root.rightChild, distance-1, list);
     }
 
 }
+
